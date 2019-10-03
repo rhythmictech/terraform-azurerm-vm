@@ -1,2 +1,2 @@
-# terraform-azurerm-template
-Template repo for Azure module
+# terraform-azurerm-vm
+linux VM on Azure
