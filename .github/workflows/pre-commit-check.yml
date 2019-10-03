@@ -10,7 +10,7 @@ jobs:
     
     - name: Install prereq
       run: |
-        brew install pre-commit tfenv 
+        brew install pre-commit tfenv terraform-docs
         tfenv install
         pre-commit install
         
