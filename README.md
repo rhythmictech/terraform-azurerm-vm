@@ -31,3 +31,7 @@ linux VM on Azure
 | vm | vm resource object |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## Acknowledgements
+Thank you to @cytopia for the `Makefile` which allows us to generate the documentation.
+See https://github.com/cytopia/docker-terraform-docs
