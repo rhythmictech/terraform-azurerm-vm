@@ -1,0 +1,20 @@
+name: pre-commit-check
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Install prereq
+      run: |
+        brew install pre-commit tfenv terraform-docs
+        tfenv install
+        pre-commit install
+        
+    - name: run pre-commit hooks
+      run: |
+        pre-commit run --all-files
+
