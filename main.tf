@@ -1,11 +1,41 @@
 
 # =============================================
-# main
+# tags
+# =============================================
+
+module "tags" {
+  source  = "rhythmictech/tags/terraform"
+  version = "0.0.1"
+
+  names = [var.env, var.name]
+
+  tags = var.tags
+}
+
+# =============================================
+# secrets
 # =============================================
 
 resource "tls_private_key" "ssh" {
+  count = local.create_ssh_key ? 1 : 0
+
   algorithm = "RSA"
   rsa_bits  = 2048
+}
+
+# =============================================
+# vm
+# =============================================
+
+resource "azurerm_public_ip" "this" {
+  count = var.assign_public_ip ? 1 : 0
+
+  name                = "${var.name}-publicip"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  allocation_method   = var.public_ip_allocation_method
+
+  tags = module.tags.tags
 }
 
 resource "azurerm_network_interface" "this" {
@@ -15,11 +45,12 @@ resource "azurerm_network_interface" "this" {
 
   ip_configuration {
     name                          = "${var.name}-ipconfig"
-    subnet_id                     = local.bastion_subnet_id
-    private_ip_address_allocation = "Dynamic"
+    subnet_id                     = local.subnet_id
+    private_ip_address_allocation = var.private_ip_address_allocation
+    public_ip_address_id          = var.assign_public_ip ? azurerm_public_ip.this[0].id : ""
   }
 
-  tags = local.common_tags
+  tags = module.tags.tags
 }
 
 resource "azurerm_virtual_machine" "this" {
@@ -58,5 +89,5 @@ resource "azurerm_virtual_machine" "this" {
     }
   }
 
-  tags = local.common_tags
+  tags = module.tags.tags
 }
