@@ -24,7 +24,7 @@ resource "tls_private_key" "ssh" {
 }
 
 # =============================================
-# vm
+# networking
 # =============================================
 
 resource "azurerm_public_ip" "this" {
@@ -52,6 +52,10 @@ resource "azurerm_network_interface" "this" {
 
   tags = module.tags.tags
 }
+
+# =============================================
+# vm
+# =============================================
 
 resource "azurerm_virtual_machine" "this" {
   name                  = "${var.name}-vm"
