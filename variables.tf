@@ -84,6 +84,12 @@ variable "ssh_key" {
   default     = ""
 }
 
+variable "custom_data" {
+  description = "Custom Data to provide VM via Azure metadata"
+  type        = string
+  default     = ""
+}
+
 # =============================================
 # data/locals
 # =============================================

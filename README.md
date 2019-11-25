@@ -9,6 +9,7 @@ linux VM on Azure
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | assign\_public\_ip | If true then assigns a public IP to the VM | bool | `"false"` | no |
+| custom\_data | Custom Data to provide VM via Azure metadata | string | `""` | no |
 | env | Environment to tag resources with | string | `"default"` | no |
 | location | Azure Location for Resources | string | `"eastus"` | no |
 | name | Moniker to apply to all resources in the module | string | n/a | yes |
